@@ -1,16 +1,26 @@
 import numpy as np
-import openai
-#from openai.embeddings_utils import cosine_similarity
+
+# from openai.embeddings_utils import cosine_similarity
 import torch
+from openai import OpenAI
 
 from .doc_utils import MethodDoc
 
+client = OpenAI()
 
+
+# https://platform.openai.com/docs/guides/embeddings/use-cases
 def get_embedding(text: str):
-    """Get embedding of given text using OpenAI's text embedding API."""
-    response = openai.Embedding.create(input=text, model="text-embedding-ada-002")
-    embeddings = response["data"][0]["embedding"]
-    return embeddings
+    model = "text-embedding-3-small"
+    text = text.replace("\n", " ")
+    return client.embeddings.create(input=[text], model=model).data[0].embedding
+
+
+# def get_embedding(text: str):
+#    """Get embedding of given text using OpenAI's text embedding API."""
+#    response = openai.Embedding.create(input=text, model="text-embedding-ada-002")
+#    embeddings = response["data"][0]["embedding"]
+#    return embeddings
 
 
 class MethodsVectorIndex:
@@ -36,7 +46,7 @@ class MethodsVectorIndex:
         """Search for methods that match the given query."""
         query_embedding = get_embedding(query)
         cos_sims = [
-            #cosine_similarity(query_embedding, doc_embedding)
+            # cosine_similarity(query_embedding, doc_embedding)
             torch.nn.functional.cosine_similarity(query_embedding, doc_embedding)
             for doc_embedding in self.doc_embeddings
         ]

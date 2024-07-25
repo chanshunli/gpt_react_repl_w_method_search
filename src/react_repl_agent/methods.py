@@ -3,23 +3,26 @@ from datetime import datetime, timedelta, timezone
 from typing import Callable
 
 from react_repl_agent.agent_steps.react_steps import ReActFinished
-#from react_repl_agent.apis.discord import send_message_discord
+
+# from react_repl_agent.apis.discord import send_message_discord
 from react_repl_agent.apis.image import download_image, shrink_image
 from react_repl_agent.apis.location import (
     get_user_location,
     search_location_geocoordinates,
 )
-#from react_repl_agent.apis.nasa import get_nasa_astronomy_picture_of_the_day
+
+# from react_repl_agent.apis.nasa import get_nasa_astronomy_picture_of_the_day
 from react_repl_agent.apis.open_meteo import (
     get_current_weather,
     get_daily_weather_forecast,
 )
-#from react_repl_agent.apis.slack import (
+
+# from react_repl_agent.apis.slack import (
 #    get_slack_channel_id,
 #    send_slack_image,
 #    send_slack_message,
-#)
-#from react_repl_agent.apis.stock_prices import get_weekly_stock_price
+# )
+# from react_repl_agent.apis.stock_prices import get_weekly_stock_price
 from react_repl_agent.apis.table import (
     get_table_row,
     run_sql_query,
@@ -42,13 +45,13 @@ def get_method_index() -> tuple[Callable[[str], None], dict]:
         get_full_doc(search_location_geocoordinates),
         get_full_doc(get_user_location),
         # Slack
-        #get_full_doc(get_slack_channel_id),
-        #get_full_doc(send_slack_message),
-        #get_full_doc(send_slack_image),
+        # get_full_doc(get_slack_channel_id),
+        # get_full_doc(send_slack_message),
+        # get_full_doc(send_slack_image),
         # Discord
         # get_full_doc(send_message_discord),
         # NASA
-        #get_full_doc(get_nasa_astronomy_picture_of_the_day),
+        # get_full_doc(get_nasa_astronomy_picture_of_the_day),
         # Image
         get_full_doc(download_image),
         get_full_doc(shrink_image),
@@ -56,7 +59,7 @@ def get_method_index() -> tuple[Callable[[str], None], dict]:
         get_full_doc(run_sql_query),
         get_full_doc(get_table_row),
         # Stock prices
-        #get_full_doc(get_weekly_stock_price),
+        # get_full_doc(get_weekly_stock_price),
         # Date (Also injected into context)
         MethodDoc(
             method=datetime.now,

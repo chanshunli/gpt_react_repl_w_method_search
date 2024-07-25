@@ -5,7 +5,15 @@ from pathlib import Path
 from typing import Any, Final, Literal, Optional
 
 import openai
-#import openai.error
+from openai import OpenAI
+
+client = OpenAI(
+    # This is the default and can be omitted
+    api_key=os.environ.get("OPENAI_API_KEY"),
+)
+
+
+# import openai.error
 import requests
 import tiktoken
 
@@ -35,11 +43,11 @@ def call_model(
             stop_sequences=stop_sequences,
         )
     except (
-        #openai.error.RateLimitError,
-        #openai.error.Timeout,
-        #openai.error.TryAgain,
-        #openai.error.APIConnectionError,
-        #openai.error.ServiceUnavailableError,
+        # openai.error.RateLimitError,
+        # openai.error.Timeout,
+        # openai.error.TryAgain,
+        # openai.error.APIConnectionError,
+        # openai.error.ServiceUnavailableError,
         requests.exceptions.Timeout,
     ) as exc:
         logging.warning(f"{type(exc).__name__}: {exc}")
@@ -88,7 +96,7 @@ def call_text_davinci(
     max_tokens: int,
     stop_sequences: list[str],
 ) -> tuple[str, Any]:
-    response = openai.Completion.create(
+    response = client.chat.completions.create(
         engine="text-davinci-003",
         prompt=prompt,
         temperature=0.00,
@@ -104,7 +112,7 @@ def call_gpt35turbo(
     max_tokens: int,
     stop_sequences: list[str],
 ) -> tuple[str, Any]:
-    response = openai.ChatCompletion.create(
+    response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
             {
@@ -126,7 +134,7 @@ def call_gpt4(
     max_tokens: int,
     stop_sequences: list[str],
 ) -> tuple[str, Any]:
-    response = openai.ChatCompletion.create(
+    response = client.chat.completions.create(
         model="gpt-4",
         messages=[
             {
