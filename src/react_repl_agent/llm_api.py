@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Any, Final, Literal, Optional
 
 import openai
-import openai.error
+#import openai.error
 import requests
 import tiktoken
 
@@ -35,11 +35,11 @@ def call_model(
             stop_sequences=stop_sequences,
         )
     except (
-        openai.error.RateLimitError,
-        openai.error.Timeout,
-        openai.error.TryAgain,
-        openai.error.APIConnectionError,
-        openai.error.ServiceUnavailableError,
+        #openai.error.RateLimitError,
+        #openai.error.Timeout,
+        #openai.error.TryAgain,
+        #openai.error.APIConnectionError,
+        #openai.error.ServiceUnavailableError,
         requests.exceptions.Timeout,
     ) as exc:
         logging.warning(f"{type(exc).__name__}: {exc}")

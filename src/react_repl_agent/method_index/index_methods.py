@@ -1,6 +1,7 @@
 import numpy as np
 import openai
-from openai.embeddings_utils import cosine_similarity
+#from openai.embeddings_utils import cosine_similarity
+import torch
 
 from .doc_utils import MethodDoc
 
@@ -35,7 +36,8 @@ class MethodsVectorIndex:
         """Search for methods that match the given query."""
         query_embedding = get_embedding(query)
         cos_sims = [
-            cosine_similarity(query_embedding, doc_embedding)
+            #cosine_similarity(query_embedding, doc_embedding)
+            torch.nn.functional.cosine_similarity(query_embedding, doc_embedding)
             for doc_embedding in self.doc_embeddings
         ]
         sorted_idxs = np.argsort(cos_sims)[::-1]
