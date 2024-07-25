@@ -1,5 +1,10 @@
 # ReAct REPL Agent
 
+* Xonshrc Dev
+```bash
+$ cd /Users/emacspy/AIMutilAgentPro/gpt_react_repl_w_method_search/src
+$ source react_repl_agent/methods.py
+```
 Large-language model based "agent" that can can execute small tasks by using a Python REPL and pre-implemented methods. The "agent loop" is based on [ReAct](https://arxiv.org/abs/2210.03629).
 
 The agent can look up methods using a `method_search()` method that uses semantic search on the indexed Python methods. Methods are indexed using OpenAI embedding of their signatures and descriptions.
